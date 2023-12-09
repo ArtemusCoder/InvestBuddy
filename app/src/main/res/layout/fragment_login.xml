@@ -20,14 +20,14 @@
 
     <!--edit text for user name-->
     <EditText
-        android:id="@+id/idEdtUserName"
+        android:id="@+id/idEdtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVHeader"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter UserName"
+        android:hint="Enter Email"
         android:inputType="textEmailAddress" />
 
     <!--edit text for user password-->
@@ -35,7 +35,7 @@
         android:id="@+id/idEdtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdtUserName"
+        android:layout_below="@id/idEdtEmail"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -44,14 +44,14 @@
 
     <!--button to register our new user-->
     <Button
-        android:id="@+id/idBtnRegister"
+        android:id="@+id/idBtnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idEdtPassword"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="Register User"
+        android:text="Login"
         android:textAllCaps="false" />
 
 </RelativeLayout>

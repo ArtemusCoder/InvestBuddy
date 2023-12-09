@@ -1,4 +1,4 @@
-package com.example.investbuddy.auth
+package com.example.investbuddy.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
