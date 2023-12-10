@@ -14,7 +14,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Welcome to InvestBuddy \n Login Form"
+        android:text="Добро пожаловать в InvestBuddy \n Вход"
         android:textAlignment="center"
         android:textSize="18sp" />
 
@@ -51,8 +51,20 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="Login"
+        android:text="Войти"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/idBtnRegisterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idBtnLogin"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Зарегистрироваться"
+        android:textAllCaps="false" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
