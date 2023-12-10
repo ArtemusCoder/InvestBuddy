@@ -6,13 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.investbuddy.R
 import com.example.investbuddy.databinding.FragmentLoginBinding
-import com.example.investbuddy.network.AuthAPI
-import com.example.investbuddy.network.Resource
-import com.example.investbuddy.repository.AuthRepository
+import com.example.investbuddy.data.network.AuthAPI
+import com.example.investbuddy.data.network.Resource
+import com.example.investbuddy.data.repository.AuthRepository
 import com.example.investbuddy.ui.base.BaseFragment
+import com.example.investbuddy.ui.enable
+import com.example.investbuddy.ui.home.HomeActivity
+import com.example.investbuddy.ui.startNewActivity
+import com.example.investbuddy.ui.visible
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,24 +36,36 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.progressBar.visible(false)
+        binding.idBtnLogin.enable(false)
+
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-            when(it) {
+            binding.progressBar.visible(false)
+            when (it) {
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+                    viewModel.saveAuthToken(it.value.access_token)
+                    requireActivity().startNewActivity(HomeActivity::class.java)
                 }
+
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), "Login Failure", Toast.LENGTH_LONG).show()
                 }
             }
         })
 
+        binding.idEdtPassword.addTextChangedListener {
+            val email = binding.idEdtEmail.text.toString().trim()
+            binding.idBtnLogin.enable(email.isNotEmpty() && it.toString().isNotEmpty())
+        }
+
         binding.idBtnLogin.setOnClickListener {
             val email = binding.idEdtEmail.text.toString().trim()
             val password = binding.idEdtPassword.text.toString().trim()
-
+            binding.progressBar.visible(true)
             viewModel.login(email, password)
         }
     }
+
     override fun getViewModel() = AuthViewModel::class.java
 
     override fun getFragmentBinding(
@@ -54,6 +73,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         container: ViewGroup?
     ) = FragmentLoginBinding.inflate(inflater, container, false)
 
-    override fun getFragmentRepository() = AuthRepository(remoteDataSource.buildAPI(AuthAPI::class.java))
+    override fun getFragmentRepository() =
+        AuthRepository(remoteDataSource.buildAPI(AuthAPI::class.java), userPreferences)
 
 }

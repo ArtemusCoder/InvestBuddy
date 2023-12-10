@@ -1,6 +1,6 @@
-package com.example.investbuddy.network
+package com.example.investbuddy.data.network
 
-import com.example.investbuddy.responses.LoginResponse
+import com.example.investbuddy.data.responses.LoginResponse
 import retrofit2.http.Field
 import retrofit2.http.POST
 import retrofit2.http.FormUrlEncoded

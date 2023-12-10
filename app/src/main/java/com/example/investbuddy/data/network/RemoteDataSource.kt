@@ -1,4 +1,4 @@
-package com.example.investbuddy.network
+package com.example.investbuddy.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,15 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteDataSource {
     companion object {
-        private const val BASE_URL = "http://192.168.0.104:8000/"
+        private const val BASE_URL = "http://10.0.2.2:8000/"
     }
 
     fun <Api> buildAPI(
-        api: Class<Api>
+        api: Class<Api>,
+        authToken: String? = null
     ) : Api {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(OkHttpClient.Builder().also { client ->
+            .client(OkHttpClient.Builder()
+                .addInterceptor {chain ->
+                    chain.proceed(chain.request().newBuilder().also {
+                        it.addHeader("Authorization", "Bearer $authToken")
+                    }.build())
+
+                }.also { client ->
                     val logging = HttpLoggingInterceptor();
                     logging.setLevel(HttpLoggingInterceptor.Level.BODY)
                     client.addInterceptor(logging)

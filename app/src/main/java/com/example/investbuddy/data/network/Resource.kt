@@ -1,4 +1,4 @@
-package com.example.investbuddy.network
+package com.example.investbuddy.data.network
 
 import okhttp3.ResponseBody
 

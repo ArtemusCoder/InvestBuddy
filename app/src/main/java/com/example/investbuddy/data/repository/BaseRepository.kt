@@ -1,6 +1,6 @@
-package com.example.investbuddy.repository
+package com.example.investbuddy.data.repository
 
-import com.example.investbuddy.network.Resource
+import com.example.investbuddy.data.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
