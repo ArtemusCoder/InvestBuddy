@@ -1,6 +1,7 @@
 package com.example.investbuddy.data.repository
 
 import com.example.investbuddy.data.network.Resource
+import com.example.investbuddy.data.network.UserAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -25,5 +26,9 @@ abstract class BaseRepository {
                 }
             }
         }
+    }
+
+    suspend fun logout(api: UserAPI) = safeApiCall {
+        api.logout()
     }
 }

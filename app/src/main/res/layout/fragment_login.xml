@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+
     <!--text view for heading-->
     <TextView
         android:id="@+id/idTVHeader"
@@ -13,10 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
+        android:layout_below="@id/imageView"
         android:padding="5dp"
         android:text="Добро пожаловать в InvestBuddy \n Вход"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <!--edit text for user name-->
     <EditText
@@ -27,7 +36,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter Email"
+        android:hint="Введите почту"
         android:inputType="textEmailAddress" />
 
     <!--edit text for user password-->
@@ -39,7 +48,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter Password"
+        android:hint="Введите пароль"
         android:inputType="textPassword" />
 
     <!--button to register our new user-->

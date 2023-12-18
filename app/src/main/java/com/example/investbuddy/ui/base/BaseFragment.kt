@@ -11,13 +11,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.investbuddy.data.UserPreferences
 import com.example.investbuddy.data.network.RemoteDataSource
+import com.example.investbuddy.data.network.UserAPI
 import com.example.investbuddy.data.repository.BaseRepository
+import com.example.investbuddy.ui.auth.AuthActivity
+import com.example.investbuddy.ui.startNewActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<VM: ViewModel, B: ViewBinding, R: BaseRepository> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
 
-    protected  lateinit var userPreferences: UserPreferences
+    protected lateinit var userPreferences: UserPreferences
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
     protected val remoteDataSource = RemoteDataSource()
@@ -37,10 +40,18 @@ abstract class BaseFragment<VM: ViewModel, B: ViewBinding, R: BaseRepository> : 
         return binding.root
     }
 
-    abstract fun getViewModel() : Class<VM>
+    fun logout() = lifecycleScope.launch {
+        val authToken = userPreferences.authToken.first()
+        val api = remoteDataSource.buildAPI(UserAPI::class.java, authToken)
+        viewModel.logout(api)
+        userPreferences.clear()
+        requireActivity().startNewActivity(AuthActivity::class.java)
+    }
 
-    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) : B
+    abstract fun getViewModel(): Class<VM>
 
-    abstract fun getFragmentRepository() : R
+    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B
+
+    abstract fun getFragmentRepository(): R
 
 }

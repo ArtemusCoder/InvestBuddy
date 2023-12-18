@@ -10,4 +10,14 @@ class UserRepository(
         api.getUser()
     }
 
+    suspend fun getStocks() = safeApiCall {
+        api.getMyStocks()
+    }
+
+    suspend fun balanceAdd(
+        money: Double
+    ) = safeApiCall {
+        api.balance_add(money)
+    }
+
 }

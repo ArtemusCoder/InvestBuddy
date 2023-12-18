@@ -16,6 +16,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.balance.BalanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/Theme.InvestBuddy" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
         <activity

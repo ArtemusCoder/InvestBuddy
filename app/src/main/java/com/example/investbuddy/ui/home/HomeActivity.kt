@@ -1,10 +1,15 @@
 package com.example.investbuddy.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.investbuddy.R
 import com.example.investbuddy.databinding.ActivityHomeBinding
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -14,7 +19,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(HomeFragment())
-
+        window.navigationBarColor = resources.getColor(R.color.navbar)
+        window.statusBarColor = resources.getColor(R.color.navbar)
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> replaceFragment(HomeFragment())

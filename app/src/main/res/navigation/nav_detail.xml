@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_detail"
+    app:startDestination="@id/detailFragment">
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.investbuddy.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_buyFragment"
+            app:destination="@id/buyFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_detailFragment_to_sellFragment"
+            app:destination="@id/sellFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyFragment"
+        android:name="com.example.investbuddy.ui.detail.BuyFragment"
+        android:label="fragment_buy"
+        tools:layout="@layout/fragment_buy" />
+    <fragment
+        android:id="@+id/sellFragment"
+        android:name="com.example.investbuddy.ui.detail.SellFragment"
+        android:label="fragment_sell"
+        tools:layout="@layout/fragment_sell" />
+</navigation>

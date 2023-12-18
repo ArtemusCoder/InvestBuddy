@@ -6,18 +6,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteDataSource {
+    val BASE_URL_ALL = "http://192.168.23.251:8000/"
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:8000/"
+        const val BASE_URL = "http://192.168.23.251:8000/"
     }
 
     fun <Api> buildAPI(
         api: Class<Api>,
         authToken: String? = null
-    ) : Api {
+    ): Api {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(OkHttpClient.Builder()
-                .addInterceptor {chain ->
+                .addInterceptor { chain ->
                     chain.proceed(chain.request().newBuilder().also {
                         it.addHeader("Authorization", "Bearer $authToken")
                     }.build())

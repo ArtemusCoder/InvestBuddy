@@ -6,55 +6,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.investbuddy.R
+import com.example.investbuddy.data.network.UserAPI
+import com.example.investbuddy.data.repository.BaseRepository
+import com.example.investbuddy.data.repository.UserRepository
+import com.example.investbuddy.databinding.FragmentLoginBinding
+import com.example.investbuddy.databinding.FragmentSettingsBinding
+import com.example.investbuddy.ui.base.BaseFragment
+import com.example.investbuddy.ui.base.BaseViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SettingsFragment : BaseFragment<HomeViewModel, FragmentSettingsBinding, UserRepository>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        binding.buttonLogout.setOnClickListener {
+            logout()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+    override fun getViewModel() = HomeViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentSettingsBinding.inflate(inflater, container, false)
+
+    override fun getFragmentRepository() : UserRepository {
+        val token = runBlocking { userPreferences.authToken.first() }
+        val api = remoteDataSource.buildAPI(UserAPI::class.java, token)
+        return UserRepository(api)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
